@@ -23,12 +23,11 @@ function Splash() {
   )
 }
 
-/** Requiere sesión activa; si debe cambiar contraseña, lo fuerza a esa pantalla */
+/** Requiere sesión activa y usuario activo */
 function Protegido({ children }: { children: ReactNode }) {
   const { session, perfil, loading } = useAuth()
   if (loading) return <Splash />
   if (!session) return <Navigate to="/login" replace />
-  if (perfil?.debe_cambiar_password) return <Navigate to="/cambiar-password" replace />
   if (perfil && !perfil.activo) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background p-4 text-center">
@@ -47,7 +46,7 @@ function SoloAdmin({ children }: { children: ReactNode }) {
 }
 
 function Rutas() {
-  const { session, perfil, loading } = useAuth()
+  const { session, loading } = useAuth()
 
   if (loading) return <Splash />
 
@@ -56,10 +55,6 @@ function Rutas() {
       <Route path="/login" element={session ? <Navigate to="/" replace /> : <Login />} />
       <Route path="/registro" element={session ? <Navigate to="/" replace /> : <Registro />} />
       <Route
-        path="/cambiar-password"
-        element={session && perfil?.debe_cambiar_password ? <CambiarPassword /> : <Navigate to="/" replace />}
-      />
-      <Route
         element={
           <Protegido>
             <Layout />
@@ -67,6 +62,14 @@ function Rutas() {
         }
       >
         <Route path="/" element={<Dashboard />} />
+        <Route
+          path="/cambiar-password"
+          element={
+            <SoloAdmin>
+              <CambiarPassword />
+            </SoloAdmin>
+          }
+        />
         <Route path="/ordenes" element={<Ordenes />} />
         <Route path="/ordenes/nueva" element={<NuevaOrden />} />
         <Route path="/ordenes/:id" element={<OrdenDetalle />} />

@@ -12,6 +12,7 @@ import {
   Moon,
   Sun,
   LogOut,
+  KeyRound,
   Menu,
   X,
 } from 'lucide-react'
@@ -144,6 +145,16 @@ export default function Layout() {
             <Menu className="h-5 w-5" />
           </button>
           <div className="flex-1" />
+          {rol === 'admin' && (
+            <button
+              onClick={() => navigate('/cambiar-password')}
+              className="rounded-full border border-border p-2 transition-colors duration-150 hover:bg-accent"
+              aria-label="Cambiar mi contraseña"
+              title="Cambiar mi contraseña"
+            >
+              <KeyRound className="h-4 w-4" />
+            </button>
+          )}
           <button
             onClick={toggle}
             className="rounded-full border border-border p-2 transition-colors duration-150 hover:bg-accent"
