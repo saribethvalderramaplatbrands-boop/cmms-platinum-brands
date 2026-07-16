@@ -295,6 +295,7 @@ export type Database = {
           created_at: string
           debe_cambiar_password: boolean
           id: string
+          marca_id: string | null
           nombre: string
           rol: Database["public"]["Enums"]["rol_usuario"]
           sucursal_id: string | null
@@ -306,6 +307,7 @@ export type Database = {
           created_at?: string
           debe_cambiar_password?: boolean
           id: string
+          marca_id?: string | null
           nombre: string
           rol?: Database["public"]["Enums"]["rol_usuario"]
           sucursal_id?: string | null
@@ -317,6 +319,7 @@ export type Database = {
           created_at?: string
           debe_cambiar_password?: boolean
           id?: string
+          marca_id?: string | null
           nombre?: string
           rol?: Database["public"]["Enums"]["rol_usuario"]
           sucursal_id?: string | null
@@ -324,6 +327,13 @@ export type Database = {
           username?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "perfiles_marca_id_fkey"
+            columns: ["marca_id"]
+            isOneToOne: false
+            referencedRelation: "marcas"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "perfiles_sucursal_id_fkey"
             columns: ["sucursal_id"]

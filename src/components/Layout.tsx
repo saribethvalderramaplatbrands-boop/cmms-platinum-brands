@@ -16,8 +16,8 @@ import {
   Menu,
   X,
 } from 'lucide-react'
-import { logoPlatinum } from '@/assets/logos'
 import { useAuth } from '@/contexts/AuthContext'
+import { MARCAS } from '@/lib/marcas'
 import { ROLES } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
@@ -48,12 +48,13 @@ function useTema() {
 }
 
 export default function Layout() {
-  const { perfil, signOut } = useAuth()
+  const { perfil, marca, signOut } = useAuth()
   const navigate = useNavigate()
   const { oscuro, toggle } = useTema()
   const [menuAbierto, setMenuAbierto] = useState(false)
 
   const rol = perfil?.rol ?? 'sucursal'
+  const info = MARCAS[marca ?? 'PLATINUM']
   const items = NAV_PRINCIPAL.filter((i) => i.roles.includes(rol))
   const itemsAdmin = NAV_ADMIN.filter((i) => i.roles.includes(rol))
 
@@ -64,19 +65,21 @@ export default function Layout() {
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     cn(
-      'flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors duration-150',
+      'flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium tracking-tight transition-all duration-150',
       isActive
-        ? 'bg-sidebar-accent text-sidebar-foreground'
-        : 'text-muted-foreground hover:bg-sidebar-accent/60 hover:text-sidebar-foreground'
+        ? 'bg-primary/10 font-semibold text-primary'
+        : 'text-muted-foreground hover:bg-sidebar-accent/70 hover:text-sidebar-foreground'
     )
 
   const sidebar = (
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-3 border-b border-sidebar-border px-5 py-5">
-        <img src={logoPlatinum} alt="Platinum Brands" className="h-8 w-auto dark:invert dark:brightness-200" />
+        <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white p-1.5 shadow-sm ring-1 ring-black/5">
+          <img src={info.logo} alt={info.nombre} className="max-h-full max-w-full object-contain" />
+        </span>
         <div className="leading-tight">
-          <p className="text-sm font-semibold">CMMS</p>
-          <p className="text-xs text-muted-foreground">Mantenimiento</p>
+          <p className="text-[15px] font-bold tracking-tight">CMMS</p>
+          <p className="text-xs font-medium text-muted-foreground">{info.corto}</p>
         </div>
       </div>
 
@@ -109,9 +112,9 @@ export default function Layout() {
             {perfil?.nombre?.slice(0, 2).toUpperCase() ?? '??'}
           </div>
           <div className="min-w-0 flex-1 leading-tight">
-            <p className="truncate text-sm font-medium">{perfil?.nombre}</p>
+            <p className="truncate text-sm font-semibold tracking-tight">{perfil?.nombre}</p>
             <p className="text-xs text-muted-foreground">
-              {ROLES[rol as keyof typeof ROLES] ?? rol}
+              {ROLES[rol as keyof typeof ROLES] ?? rol} · {info.corto}
             </p>
           </div>
         </div>
@@ -122,7 +125,7 @@ export default function Layout() {
   return (
     <div className="flex h-screen bg-background">
       {/* Sidebar escritorio */}
-      <aside className="hidden w-64 shrink-0 border-r border-sidebar-border bg-sidebar-background lg:block">{sidebar}</aside>
+      <aside className="hidden w-64 shrink-0 border-r border-sidebar-border bg-sidebar-background/85 backdrop-blur-xl lg:block">{sidebar}</aside>
 
       {/* Sidebar móvil */}
       {menuAbierto && (
@@ -140,7 +143,7 @@ export default function Layout() {
       )}
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex items-center gap-3 border-b border-border bg-card px-4 py-3 lg:px-6">
+        <header className="flex items-center gap-3 border-b border-border bg-card/80 px-4 py-3 backdrop-blur-xl lg:px-6">
           <button onClick={() => setMenuAbierto(true)} className="rounded-md p-2 hover:bg-accent lg:hidden" aria-label="Abrir menú">
             <Menu className="h-5 w-5" />
           </button>

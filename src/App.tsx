@@ -46,13 +46,13 @@ function SoloAdmin({ children }: { children: ReactNode }) {
 }
 
 function Rutas() {
-  const { session, loading } = useAuth()
+  const { session, loading, validando } = useAuth()
 
   if (loading) return <Splash />
 
   return (
     <Routes>
-      <Route path="/login" element={session ? <Navigate to="/" replace /> : <Login />} />
+      <Route path="/login" element={session && !validando ? <Navigate to="/" replace /> : <Login />} />
       <Route path="/registro" element={session ? <Navigate to="/" replace /> : <Registro />} />
       <Route
         element={
