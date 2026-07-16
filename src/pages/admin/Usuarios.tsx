@@ -128,7 +128,9 @@ export default function AdminUsuarios() {
                           ? 'bg-primary/10 text-primary'
                           : u.rol === 'tecnico'
                             ? 'bg-violet-500/10 text-violet-700 dark:text-violet-400'
-                            : 'bg-stone-500/10 text-stone-600 dark:text-stone-400'
+                            : u.rol === 'sucursal'
+                              ? 'bg-stone-500/10 text-stone-600 dark:text-stone-400'
+                              : 'bg-blue-500/10 text-blue-700 dark:text-blue-400'
                       }`}>
                         {ROLES[u.rol]}
                       </span>
@@ -183,10 +185,10 @@ export default function AdminUsuarios() {
             </div>
             <div>
               <label className="mb-1.5 block text-sm font-medium">Rol *</label>
-              <div className="flex gap-2">
+              <div className="grid grid-cols-3 gap-2">
                 {(Object.keys(ROLES) as Rol[]).map((r) => (
                   <button key={r} type="button" onClick={() => setRol(r)}
-                    className={`flex-1 rounded-full border px-3 py-2 text-sm font-medium transition-colors ${
+                    className={`rounded-full border px-3 py-2 text-xs font-medium transition-colors ${
                       rol === r ? 'border-primary bg-primary text-primary-foreground' : 'border-border hover:bg-accent'
                     }`}>
                     {ROLES[r]}

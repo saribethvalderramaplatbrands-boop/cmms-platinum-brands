@@ -90,7 +90,8 @@ export default function AdminSucursales() {
                   <th className="px-4 py-3 font-medium">Marca</th>
                   <th className="px-4 py-3 font-medium">Nombre</th>
                   <th className="hidden px-4 py-3 font-medium sm:table-cell">Código</th>
-                  <th className="hidden px-4 py-3 font-medium lg:table-cell">Dirección</th>
+                  <th className="hidden px-4 py-3 font-medium lg:table-cell">Gerencia</th>
+                  <th className="hidden px-4 py-3 font-medium xl:table-cell">Dirección</th>
                   <th className="px-4 py-3 font-medium">Estado</th>
                   <th className="px-4 py-3 font-medium" />
                 </tr>
@@ -108,7 +109,14 @@ export default function AdminSucursales() {
                     </td>
                     <td className="px-4 py-3 font-medium">{s.nombre}</td>
                     <td className="hidden px-4 py-3 font-mono text-xs text-muted-foreground sm:table-cell">{s.codigo ?? '—'}</td>
-                    <td className="hidden max-w-48 truncate px-4 py-3 text-muted-foreground lg:table-cell">{s.direccion ?? '—'}</td>
+                    <td className="hidden px-4 py-3 lg:table-cell">
+                      <div className="space-y-0.5 text-xs text-muted-foreground">
+                        {s.gerente_area && <p><span className="font-medium text-foreground/70">Área:</span> {s.gerente_area}</p>}
+                        {s.gerente_regional && <p><span className="font-medium text-foreground/70">Regional:</span> {s.gerente_regional}</p>}
+                        {s.supervisor && <p><span className="font-medium text-foreground/70">Sup:</span> {s.supervisor}</p>}
+                      </div>
+                    </td>
+                    <td className="hidden max-w-48 truncate px-4 py-3 text-muted-foreground xl:table-cell">{s.direccion ?? '—'}</td>
                     <td className="px-4 py-3">
                       <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${
                         s.activa ? 'bg-green-500/10 text-green-700 dark:text-green-400' : 'bg-stone-500/10 text-stone-500'

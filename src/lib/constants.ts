@@ -20,6 +20,9 @@ export const ROLES: Record<Enums<'rol_usuario'>, string> = {
   admin: 'Administrador',
   tecnico: 'Técnico',
   sucursal: 'Sucursal',
+  gerente_area: 'Gerente de Área',
+  gerente_regional: 'Gerente Regional',
+  supervisor: 'Supervisor',
 }
 
 export const ESTADOS_EQUIPO: Record<Enums<'estado_equipo'>, { label: string; dot: string; pill: string }> = {

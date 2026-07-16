@@ -17,15 +17,19 @@ import {
 } from 'lucide-react'
 import { logoPlatinum } from '@/assets/logos'
 import { useAuth } from '@/contexts/AuthContext'
+import { ROLES } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
+const GERENCIAL = ['gerente_area', 'gerente_regional', 'supervisor']
+const TODOS = ['admin', 'tecnico', 'sucursal', ...GERENCIAL]
+
 const NAV_PRINCIPAL = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard, roles: ['admin', 'tecnico', 'sucursal'] },
-  { to: '/ordenes', label: 'Órdenes de trabajo', icon: ClipboardList, roles: ['admin', 'tecnico', 'sucursal'] },
-  { to: '/equipos', label: 'Equipos', icon: Wrench, roles: ['admin', 'tecnico', 'sucursal'] },
-  { to: '/preventivos', label: 'Preventivos', icon: CalendarClock, roles: ['admin', 'tecnico', 'sucursal'] },
+  { to: '/', label: 'Dashboard', icon: LayoutDashboard, roles: TODOS },
+  { to: '/ordenes', label: 'Órdenes de trabajo', icon: ClipboardList, roles: TODOS },
+  { to: '/equipos', label: 'Equipos', icon: Wrench, roles: TODOS },
+  { to: '/preventivos', label: 'Preventivos', icon: CalendarClock, roles: TODOS },
   { to: '/repuestos', label: 'Repuestos', icon: Package, roles: ['admin', 'tecnico'] },
-  { to: '/reportes', label: 'Reportes', icon: FileSpreadsheet, roles: ['admin', 'tecnico'] },
+  { to: '/reportes', label: 'Reportes', icon: FileSpreadsheet, roles: ['admin', 'tecnico', ...GERENCIAL] },
 ]
 
 const NAV_ADMIN = [
@@ -106,7 +110,7 @@ export default function Layout() {
           <div className="min-w-0 flex-1 leading-tight">
             <p className="truncate text-sm font-medium">{perfil?.nombre}</p>
             <p className="text-xs text-muted-foreground">
-              {rol === 'admin' ? 'Administrador' : rol === 'tecnico' ? 'Técnico' : 'Sucursal'}
+              {ROLES[rol as keyof typeof ROLES] ?? rol}
             </p>
           </div>
         </div>
