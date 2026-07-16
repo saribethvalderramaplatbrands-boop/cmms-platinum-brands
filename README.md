@@ -20,7 +20,7 @@ Crear estas variables de entorno en el proyecto de Vercel:
 ## Puesta en marcha (una sola vez)
 
 1. En Supabase → **Authentication → Sign In / Providers → Email**: desactivar **"Confirm email"**
-   (los usuarios usan correos internos `@platinum.local`, no reciben correos reales).
+   (los usuarios usan correos internos `@platinumbrands.com`, no reciben correos reales).
 2. Abrir la app → "Configuración inicial: crear cuenta de administrador".
 3. Registrar el primer usuario → queda como **administrador automáticamente**.
 4. Volver a Supabase → **Authentication**: desactivar el registro público

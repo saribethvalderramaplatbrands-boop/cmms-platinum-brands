@@ -11,7 +11,7 @@ if (!supabaseUrl || !supabaseKey) {
 export const supabase = createClient<Database>(supabaseUrl ?? '', supabaseKey ?? '')
 
 /** Dominio interno: los usuarios entran con username simple, por dentro es un correo */
-export const DOMINIO_INTERNO = '@platinum.local'
+export const DOMINIO_INTERNO = '@platinumbrands.com'
 
 /** Normaliza el username: minúsculas, sin espacios ni acentos */
 export function normalizarUsername(input: string): string {
