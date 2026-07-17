@@ -29,7 +29,7 @@
     --sidebar-foreground: 0 0% 10%;
     --sidebar-primary: 213 100% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 24% 95%;
+    --sidebar-accent: 240 24% 96%;
     --sidebar-accent-foreground: 0 0% 10%;
     --sidebar-border: 240 6% 91%;
     --sidebar-ring: 213 100% 38%;
@@ -218,6 +218,30 @@
   will-change: transform, opacity;
 }
 
+/* Lluvia sutil de íconos del login (muslitos, blizzards y llaves) */
+@keyframes icono-cae {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(-12deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--icono-op, 0.1);
+  }
+  88% {
+    opacity: var(--icono-op, 0.1);
+  }
+  100% {
+    transform: translate3d(var(--icono-drift, 3vw), 112vh, 0) rotate(330deg);
+    opacity: 0;
+  }
+}
+
+.anim-icono-cae {
+  top: -8vh;
+  animation: icono-cae linear infinite;
+  will-change: transform, opacity;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .anim-grid,
   .anim-orb-a,
@@ -226,7 +250,8 @@
   .anim-float-a,
   .anim-float-b,
   .anim-float-c,
-  .anim-fade-up {
+  .anim-fade-up,
+  .anim-icono-cae {
     animation: none;
   }
 }

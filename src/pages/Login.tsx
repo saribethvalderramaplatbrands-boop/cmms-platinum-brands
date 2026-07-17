@@ -32,13 +32,17 @@ export default function Login() {
     <div className="relative flex min-h-screen items-center justify-center p-4">
       <FondoLogin marca={marca} />
 
-      <div className="relative z-10 w-full max-w-md">
+      <div
+        className={`relative z-10 w-full transition-all duration-500 ${
+          marca === null ? 'max-w-md md:max-w-5xl' : 'max-w-md'
+        }`}
+      >
         {/* Encabezado */}
-        <div className="anim-fade-up mb-8 flex flex-col items-center text-center">
+        <div className="anim-fade-up mb-8 flex flex-col items-center text-center md:mb-12">
           <img
             src={logoPlatinum}
             alt="Platinum Brands"
-            className="mb-5 h-11 w-auto brightness-0 invert"
+            className="mb-5 h-11 w-auto brightness-0 invert md:h-14"
           />
           <div className="flex items-center gap-2 text-white/70">
             <Wrench className="h-4 w-4" />
@@ -49,10 +53,10 @@ export default function Login() {
         </div>
 
         {marca === null ? (
-          /* -------- Selector de marca -------- */
-          <div className="space-y-3">
+          /* -------- Selector de marca: vertical en móvil, horizontal en web -------- */
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-5">
             <p
-              className="anim-fade-up px-1 text-center text-sm font-medium text-white/60"
+              className="anim-fade-up px-1 text-center text-sm font-medium text-white/60 md:col-span-3 md:mb-1 md:text-base"
               style={{ animationDelay: '80ms' }}
             >
               ¿Dónde quieres entrar?
@@ -64,22 +68,27 @@ export default function Login() {
                   setMarca(m.key)
                   setError(null)
                 }}
-                className="glass-panel anim-fade-up group flex w-full items-center gap-4 px-5 py-4 text-left transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.12]"
+                className="glass-panel anim-fade-up group relative flex w-full items-center gap-4 px-5 py-4 text-left transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.12] md:flex-col md:items-center md:gap-4 md:px-6 md:pb-8 md:pt-10 md:text-center"
                 style={{
                   animationDelay: `${140 + i * 90}ms`,
                   boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
                 }}
               >
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white p-2 shadow-lg">
+                <span
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white p-2 shadow-lg transition-transform duration-300 group-hover:scale-105 md:h-28 md:w-28 md:rounded-[1.75rem] md:p-4"
+                  style={{ boxShadow: `0 14px 34px -8px rgba(${m.glow}, 0.5)` }}
+                >
                   <img src={m.logo} alt={m.nombre} className="max-h-full max-w-full object-contain" />
                 </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-base font-bold tracking-tight text-white">
+                <span className="min-w-0 flex-1 md:flex-none">
+                  <span className="block text-base font-bold tracking-tight text-white md:text-xl">
                     {m.nombre}
                   </span>
-                  <span className="block truncate text-sm text-white/55">{m.tagline}</span>
+                  <span className="block truncate text-sm text-white/55 md:mt-1 md:whitespace-normal">
+                    {m.tagline}
+                  </span>
                 </span>
-                <ChevronRight className="h-5 w-5 shrink-0 text-white/40 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-white/80" />
+                <ChevronRight className="h-5 w-5 shrink-0 text-white/40 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-white/80 md:absolute md:right-4 md:top-4" />
               </button>
             ))}
           </div>
